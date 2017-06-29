@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
+
+        <meta name="description" content="Violate Responsive Admin Template">
+        <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+		
+        <title>获奖名单</title>
+        
+        <!-- 包含CSS -->
+        		<!-- CSS -->
+        <link href="/bi/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/bi/css/animate.min.css" rel="stylesheet">
+        <link href="/bi/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/bi/css/form.css" rel="stylesheet">
+        <link href="/bi/css/calendar.css" rel="stylesheet">
+        <link href="/bi/css/style.css" rel="stylesheet">
+        <link href="/bi/css/icons.css" rel="stylesheet">
+        <link href="/bi/css/generics.css" rel="stylesheet"> 
+		<link rel="stylesheet" type="text/css" href="/bi/plugins/datatables/dataTables.bootstrap.min.css" />
+  		<link rel="stylesheet" type="text/css" href="/bi/css/alert/style.css" />
+  		<link rel="stylesheet" href="/bi/plugins/jQueryCalendar20160303/calendar.css" />
+  		<link rel="stylesheet" href="/bi/plugins/datatables/buttons.dataTables.min.css" />
+        <style> 
+         ul, ol, li {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.calendar-hd{
+			height: 46px;
+		}
+		#dd{
+			top: 40px !important;
+			left: 0px !important;
+			/* height: 330px;*/
+		    font: 500 14px 'roboto';
+			color: #333;
+			background-color: #fafafa;
+		}
+		#dd a {
+			text-decoration: none;
+		}
+		#dd2{
+			top: 40px !important;
+			left: 0px !important;
+			/* height: 330px;*/
+		    font: 500 14px 'roboto';
+			color: #333;
+			background-color: #fafafa;
+		}
+		#dd2 a {
+			text-decoration: none;
+		}
+		 ul, ol, li {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		#demo {
+			width: 300px;
+			margin: 150px auto;
+		}
+		p {
+			margin: 0;
+		}
+		#dt {
+			color: #000;
+			margin: 30px auto;
+			height: 28px;
+			width: 200px;
+			padding: 0 6px;
+			border: 1px solid #ccc;
+			outline: none;
+		}
+		
+		select option {
+		    color: #000;
+		    font-size: 13px;
+		} 
+        </style>    
+        
+    </head>
+    <body id="skin-blur-violate">
+        
+        <section id="main" class="p-relative" role="main">
+            
+            <!-- Sidebar -->
+        
+            <!-- Content -->
+            <section >
+            
+                
+                <h2 class="text-center" style="margin-bottom:20px;">获奖名单</h2>
+                  
+                <!-- 代码从此处开始 -->
+                <table id="table" class="table tile"></table>
+               
+    
+            </section>
+
+        </section>
+        
+          <!-- jQuery -->
+        <script src="/bi/js/jquery.min.js"></script> <!-- jQuery Library -->
+        <script src="/bi/js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+        <script src="/bi/js/jquery.easing.1.3.js"></script> <!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
+        <script src="/bi/plugins/jQueryCalendar20160303/js/calendar.js"></script>
+        <script src="/bi/plugins/datatables/jquery.dataTables.min.js"></script> 
+       <script src="/bi/plugins/datatables/dataTables.buttons.min.js"></script> 
+        <script src="/bi/plugins/datatables/dataTables.select.min.js"></script> 
+        <script src="/bi/plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <script src="/bi/plugins/datatables/datatables.options.js"></script>
+        <script src="/bi/plugins/datatables/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+       <script type="text/javascript">
+       		var table;
+       		var refreshTable = function(){
+    			table.draw();
+    	}
+       	 $(document).ready(function() {
+	       		 
+            	table = $('#table').DataTable({
+             	 processing: true,
+                  serverSide: true,
+                  searching: false,
+                  autoWidth: false,   //禁用自动调整列宽
+                  //stateSave: true,    //保存状态
+                 stripeClasses: ["odd", "even"],//为奇偶行加上样式，兼容不支持CSS伪类的场合
+                 order: [],          //取消默认排序查询,否则复选框一列会出现小箭头
+                 //dom: 'Bfrtip',
+                  dom:
+                	 "<'row'<'span9'<'#mytoolbox'>Bl><'span3'f>r>"+
+                     "t"+
+                     "<'row'<'col-md-6'i><'col-md-6'p>>",
+                 select: {
+ 		            style: 'multi',
+ 		            info:false
+ 		        },
+                 buttons: [
+                	 {
+                		 text: '导出Excel',
+                		 className:"btn btn-alt m-r-5",
+                         extend: 'excelHtml5'                      
+                	 }
+                 ],
+                 "lengthMenu": [[10, 25, 50, 10000000], [10, 25, 50, "全部"]],
+                 columns: [
+                     {"data": "id","name": "id","title": "ID","searchable":false},
+                    /*  {"data": "id","name": "id","title": "id","searchable":false}, */
+                     {"data": "shop_name","name": "shop_name","title": "门店","searchable":false},
+                     {"data": "order_id","name": "order_id","title": "订单号","searchable":false},
+                     {"data": "product","name": "product","title": "奖品"},
+                     {"data": "add_time","name": "add_time","title": "时间","searchable":false},
+                 ],
+                
+                 ajax: {           
+                     url: '/bi/api/shoporder/getData',
+                     data : function(data) {
+                         for (var i = 0; i < data.columns.length; i++) {  
+                             column = data.columns[i];
+                             column.searchRegex = column.search.regex;  
+                             column.searchValue = column.search.value;
+                             delete(column.search);  
+                         }  
+                         
+                         data.begindate = $('#begindate').val();
+                         data.enddate = $('#enddate').val();
+                         data.shop = $('#shop').val();
+                         data.award = $('#award').val();
+                     },
+                     type: 'GET'
+                     
+                 },
+                 "language": {
+                     "url": "/bi/plugins/datatables/Chinese.json"
+                 },
+                
+                 initComplete:function(){
+                	 var dataPlugin =
+                         '<div id="reportrange" class="pull-left dateRange" style="width:850px;margin-left: 30px"> '+
+                         '日期： '+
+                         '<div style="display:inline-block;position: relative;"> '
+        		        +' <input type="text" id="begindate"class="form-control "style="display: inline-block;margin:0 ;width: 150px;cursor:pointer; border: 1px solid rgba(255, 255, 255, 0.3);color: #ffffff;"onfocus=this.blur()>~'
+        		        +' <input type="text" id="enddate"class="form-control "style="display: inline-block;margin-right: 10px ;width: 150px;cursor:pointer; border: 1px solid rgba(255, 255, 255, 0.3);color: #ffffff;"onfocus=this.blur()>'
+        		      + '  <div id="dd" ></div><div id="dd2" ></div>'
+        		      + '门店名称: <input type="text" id="shop" class="form-control " style="display: inline-block;margin-right: 10px ;width: 150px;cursor:pointer; border: 1px solid rgba(255, 255, 255, 0.3);color: #ffffff;" onkeyup="refreshTable();"/>'
+        		      + '奖品名称: <input type="text" id="award" class="form-control " style="display: inline-block;width: 150px;cursor:pointer; border: 1px solid rgba(255, 255, 255, 0.3);color: #ffffff;" onkeyup="refreshTable();"/>'
+        			  + '  </div> '+
+                       '</div> '; 
+                 	$('#mytoolbox').append(dataPlugin);
+                 	
+                 	$('#dd').calendar({
+				        trigger: '#begindate',
+				        zIndex: 999,
+						format: 'yyyy-mm-dd',
+				        onSelected: function (view, date, data) {
+				        },
+				        onClose: function (view, date, data) {
+				        console.log( $('#begindate').val());
+			        	table.draw();
+				        }
+				    }); 
+                 	$('#dd2').calendar({
+				        trigger: '#enddate',
+				        zIndex: 999,
+						format: 'yyyy-mm-dd',
+				        onSelected: function (view, date, data) {
+				        },
+				        onClose: function (view, date, data) {
+				        console.log( $('#enddate').val());
+			        	table.draw();
+				        }
+				    }); 
+                 },
+                 
+             });
+            	
+             table.on('draw.dt',function(){
+ 				
+             });
+         });
+         </script>
+        
+</html>

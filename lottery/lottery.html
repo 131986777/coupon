@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">   
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="telephone=no" name="format-detection">
+		<title>幸运转转转</title>
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/showBo.css" />
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+		<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+		<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="js/showBo.js"></script>
+		<script type="text/javascript" src="js/awardRotate.js"></script>
+		<style> 
+
+		</style>
+
+		<script>
+		</script>
+	</head>
+	<style>
+		html,
+		body,
+		img {
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			font-size: 20px;
+		}
+		
+		body>img {
+			height: 100%;
+			width: 100%;
+			position: absolute;
+		}
+		
+		.cj {
+			position: relative;
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+		}
+		
+		#dvMsgTitle {
+			height: auto !important;
+		}
+		
+		.rotate {
+			width: 16rem;
+			height: 15rem;
+			overflow: hidden;
+			left: 42%;
+			margin-top: -6.5rem;
+			top: 38%;
+			margin-left: -6.5rem;
+			position: absolute;
+			background: url(images/turntable-bg.png);
+			background-size: 100%;
+		}
+		
+		.rotate>img {
+			width: 11rem;
+			height: 11rem;
+			left: 53%;
+			margin-left: -5.5rem;
+			top: 47%;
+			margin-top: -5.5rem;
+			position: absolute;
+		}
+		
+		.bounceIn>img {
+			width: 3.6rem;
+			height: 4.8rem;
+			position: absolute;
+			z-index: 2;
+			left: 50%;
+			margin-left: -1.3rem;
+			margin-top: -2.8rem;
+			top: 46%;
+		}
+		
+		.dialogTop {
+			margin-right: 17px;
+			color: #fff;
+		}
+		
+		select {
+			width: 171px;
+			height: 38px;
+			font-size: 0.6rem;
+		}
+		
+		.claseDialogBtn {
+			color: red;
+			position: absolute;
+			right: 5%;
+		}
+		
+		.sub {
+			width: 171px;
+			height: 38px;
+		}
+		/*dl{
+			display: -moz-box; 
+		    display: -webkit-box; 
+		    display: box; 
+		} 
+		dt{
+			text-align: center;
+			-moz-box-flex: 1; 
+		    -webkit-box-flex: 1; 
+		    box-flex: 1;
+		}*/
+		
+		.list ul li {
+			text-align: center;
+		}
+		
+		.list li {}
+		
+		.f1 {
+			width: 20%;
+			height: 1rem;
+			display: inline-block;
+		}
+		
+		.f2 {
+			width: 29%;
+			height: 1rem;
+			display: inline-block;
+		}
+		
+		.f3 {
+			width: 51%;
+			height: 1rem;
+			display: inline-block;
+		}
+		.listview::-webkit-scrollbar { 
+		 width: 8px; 
+		}
+		 .listview::-webkit-scrollbar-track { 
+		background-color:rgba(0, 0, 0, 0.15);
+		 -webkit-border-radius: 2em; 
+		 -moz-border-radius: 2em; 
+		border-radius:2em;
+		
+		}
+		.listview::-webkit-scrollbar-thumb { 
+		background-color:rgba(255,255,255,0.6);
+		 -webkit-border-radius: 2em; 
+		 -moz-border-radius: 2em; 
+		border-radius:2em;
+		}
+	</style>
+
+	<body>
+		<img src="images/bg.jpg" />
+		<div style="" class="cj">
+
+			<!--<div class="mask"><img src="images/award_01.png"/></div>-->
+			<div class="rotate" style=""><img id="rotate" src="images/turntable4.png" alt="turntable" />
+
+				<div class="pointer bounceIn"><img src="images/pointer.png" alt="pointer" style="    " />
+				</div>
+			</div>
+			<div id="dialogBg"></div>
+			<div id="dialog" class="animated">
+				<!--<img class="dialogIco" width="50" height="50" src="images/ico.png" alt="" />-->
+				<div class="dialogTop">
+					<span style="">请输入交易信息</span>
+					<a href="javascript:;" class="claseDialogBtn gb" style="">关闭</a>
+				</div>
+				<form id="editForm">
+					<ul class="editInfos">
+						<li><label><font color="#ff0000">* </font>
+							<span>门店名</span>
+						<select name="" class="ipt sel"  style="">
+						
+						
+					</select></label></li>
+						<li>
+							<label><font color="#ff0000">* </font>
+							<span>订单号</span>
+							<input type="text" name=""  value="" class="ipt sub" style=""/>
+							</label>
+						</li>
+						<li><input type="button" value="确定" class="submitBtn tj" /></li>
+					</ul>
+				</form>
+			</div>
+	
+			<div style="width:100%;box-sizing: border-box;padding: 0 4%; position: relative;top: 70%;">
+				<div class="list" style="width: 92% ;background: rgba(255,255,255,.3); position: absolute;font-size: .6rem;    padding: 2%;">
+					<div style="margin-bottom:8px; color:red">
+						<ul >
+							<li class="f1">中奖时间</li>
+							<li style="" class="f2">订单号</li>
+							<li style="    width: 48%;" class="f3">奖品</li>
+
+						<ul/>
+						<div class="jplist listview" style="color: #000000;height: 5rem;overflow: auto;">
+							
+						</div>
+						
+
+					</div>
+				</div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			
+			function ajaxGet(url, func) {
+				$.ajax({
+					type: 'GET',
+					url: url,
+					async: false,
+					dataType: 'json',
+					
+					success: function(result) {
+
+						func(result);
+					}
+				});
+
+			}
+
+			function ajaxPost(url, data, fnSucceed, fnFail, fnLoading) {
+				$.ajax({
+					url: url,
+					datatype: 'json',
+					type: 'post',
+					data: data,
+					success: function(result) {
+						fnSucceed(result);
+					}
+				});
+
+			}
+
+			ajaxGet('/bi/api/storeList', function(result) {
+				console.log(result)
+				var re = result.data
+					//				var Ldata=[]
+				for(var i = 0; i < re.length; i++) {
+					if(re[i].SHOP_ID==100002){
+						continue
+					}
+					var data = re[i].SHOP_NAME
+						//					Ldata.push(data)
+					$('.sel').append('<option style="font-size: 1rem;color:blue"' + 'value=' + re[i].SHOP_ID + '>' + re[i].SHOP_NAME + '</option>')
+				}
+
+			})
+			 
+			var r = /^\d{12}$/;　　//正整数 
+     	
+			var jpList = {}
+
+			function getlist() {
+				jpList.shopName = $(".sel option:selected").html()
+				ajaxPost('/bi/api/shoporder/getList', jpList, function(re) {
+						
+					console.log(re)
+					for(var i = 0; i < re.data.length; i++) {
+						var datas = re.data[i].add_time.substring(11)
+						$('.jplist').append('<div class="jpl"><ul><li  class="f1">' + datas + '</li><li  class="f2">' + re.data[i].order_id + '</li><li  class="f3">' + sl(re.data[i].product) + '</li><ul/></div>')
+
+						console.log(re.data[i].add_time)
+						console.log(re.data[i].product)
+						console.log(re.data[i].shop_name)
+					}
+				})
+			}
+			var rotateTimeOut = function() {
+				$('#rotate').rotate({
+					angle: 0,
+					animateTo: 2160,
+					duration: 8000,
+					callback: function() {
+						Showbo.Msg.alert('网络超时，请检查您的网络设置！');
+					}
+				});
+			};
+			var bRotate = false;
+
+			var rotateFn = function(awards, angles, txt) {
+				var list = {}
+							list.shopName = $(".sel option:selected").html()
+							list.orderId = $('.sub').val()
+					list.product = txt 
+				ajaxPost('/bi/api/shoporder/insert', list, function(re) {
+							console.log(re)
+						})
+				bRotate = !bRotate;
+				$('#rotate').stopRotate();
+				$('#rotate').rotate({
+					angle: 0,
+					animateTo: angles + 1800,
+					duration: 8000,
+					callback: function() {
+
+						if(angles == 337) {
+							Showbo.Msg.alert('<span style="">很遗憾你没有中奖</span>')
+						} else {
+							Showbo.Msg.alert('恭喜你抽中<span style="color:red">' + txt + '</span>')
+						}
+						//Showbo.Msg.alert('恭喜你抽中<span style="color:red">' + txt + '</span>')
+						bRotate = !bRotate;
+						$('.sub').attr('value', ' ')
+						$('.jpl').remove()
+							getlist()
+//						ajaxPost('/bi/api/shoporder/insert', list, function(re) {
+//							$('.jpl').remove()
+//							$('.sub').attr('value', ' ')
+//							getlist()
+//						})
+
+					}
+				})
+			};
+
+			var start = function() {
+
+					if(bRotate) return;
+
+					var item = rnd(0, 7);
+
+					switch(item) {
+						case 0:
+							//var angle = [26, 88, 137, 185, 235, 287, 337];
+							rotateFn(0, 337, '谢谢惠顾');
+							break;
+						case 1:
+							//var angle = [88, 137, 185, 235, 287];
+							rotateFn(1, 26, '海天金标生抽');
+							break;
+						case 2:
+							//var angle = [137, 185, 235, 287];
+							rotateFn(2, 88, '秦湖咸鸭蛋两枚或云厨小料包两包');
+							break;
+						case 3:
+							//var angle = [137, 185, 235, 287];
+							rotateFn(3, 137, '老才臣姜葱料酒');
+							break;
+						case 4:
+							//var angle = [185, 235, 287];
+							rotateFn(4, 185, '燕之坊绿豆百合粥（尚品)	');
+							break;
+
+						case 5:
+							//var angle = [235, 287];
+							rotateFn(5, 235, '淮牌海藻盐');
+							break;
+						case 6:
+							//var angle = [287];
+							rotateFn(6, 287, '翠宏蘸料');
+							break;
+					}
+
+				}
+							var x
+							var a1 = 0
+							var a0 = 0
+							var a2 = 0
+							var a3 = 0
+							var a4 = 0
+							var a5 = 0
+							var a6 = 0
+							for(a = 0; a < 10000; a++) {
+				
+								x = rnd(0, 7)
+				
+								if(x == 0) {
+									a0++
+								}
+								if(x == 1) {
+									a1++
+								}
+								if(x == 2) {
+									a2++
+								}
+								if(x == 3) {
+									a3++
+								}
+								if(x == 4) {
+									a4++
+								}
+								if(x == 5) {
+									a5++
+								}
+								if(x == 6) {
+									a6++
+								}
+				
+							}
+							console.log(a0 + "," + a1 + "," + a2 + "," + a3 + "," + a4 + "," + a5 + "," + a6)
+
+			function rnd(n, m) {
+				var a = Math.random() * 100
+					//	var a=14*1
+				var b = 0
+					//	console.log(a)
+					//	赠品	概率
+					// 翠宏蘸料	30% 
+					// 淮牌海藻盐 10%
+					//燕之坊绿豆百合粥（尚品)	15%
+					//谢谢惠顾	12%
+					// 老才臣姜葱料酒	4%
+					// 秦湖咸鸭蛋两枚或云厨小料包两包	30%
+					// 海天金标生抽	3%
+				if(0 <= a && a < 12) {
+					b = 0
+						//谢谢惠顾 12%
+
+				} else if(12 <= a && a < 15) {
+					b = 1 // 海天金标生抽3%
+
+				} else if(15 <= a && a < 45) {
+					b = 2 // 秦湖咸鸭蛋两枚或云厨小料包两包）	30%
+
+				} else if(45 <= a && a < 49) {
+					b = 3 // 老才臣姜葱料酒	4%
+
+				} else if(49 <= a && a < 60) {
+					b = 4 //燕之坊绿豆百合粥（尚品)	11%
+
+				} else if(60 <= a && a < 70) {
+					b = 5 // 淮牌海藻盐 10%
+
+				} else if(70 <= a && a < 100) {
+					b = 6 // 翠宏蘸料	30%
+
+				} else {
+					b = 0
+
+				}
+				return b
+			}
+
+			var w, h, className;
+
+			function getSrceenWH() {
+				w = $(window).width();
+				h = $(window).height();
+				$('#dialogBg').width(w).height(h);
+			}
+			 function Trim(str) { 
+             	return str.replace(/(^\s*)|(\s*$)/g, ""); 
+            }
+
+
+
+			function sl(s){ 
+				if(s.length>10){
+				  s=s.substring(0,10)+"...";
+				}
+				return s
+			}
+			
+
+
+
+
+
+
+
+
+			window.onresize = function() {
+				getSrceenWH();
+			}
+			$(window).resize();
+			getSrceenWH();
+				getlist()
+			$('.gb').click(function(){
+				$('.sub').attr('value', ' ')
+			})
+			$('.pointer').click(function(){
+				className = $(this).attr('class');
+				$('#dialogBg').fadeIn(300);
+				$('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
+			})
+//			$(document).on('click','.pointer',function() {
+//				className = $(this).attr('class');
+//				$('#dialogBg').fadeIn(300);
+//				$('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
+//			});
+			var gb = function() {
+				$('#dialogBg').fadeOut(300, function() {
+					$('#dialog').addClass('bounceOutUp').fadeOut();
+				})
+			}
+			$('.claseDialogBtn').click(gb);
+
+			$('.tj').click(function() {
+				var obj = {
+
+				}
+				obj.orderNo = $('.sub').val()
+				obj.ran= Math.random()
+				console.log(obj.orderNo)
+			
+			
+			
+			
+				if(r.test(Trim($('.sub').val()))){
+					var order = {}
+					order.shopName = $(".sel option:selected").html();
+					order.orderNo = Trim($('.sub').val());
+					order.r=Math.random()
+				ajaxPost('/bi/api/shoporder/ordercount', order, function(res) {
+					  console.log(res.data)
+						if(res.data== 0) {
+							gb()
+							
+								
+//							$('.pointer').unbind("click")
+							setTimeout(start(), 1000)
+//							setTimeout($('.pointer').bind("click"), 4000)
+	
+						} 
+						else if(res.data>0) {
+							Showbo.Msg.alert('请勿重复抽奖')
+						}
+					});
+				}
+				else{
+					Showbo.Msg.alert('请输入正确的订单号')
+				}
+//				ajaxPost('', obj, function(res) {
+//					
+//				})
+
+			})
+
+		});
+	</script>
+
+</html>
